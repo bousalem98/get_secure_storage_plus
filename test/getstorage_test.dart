@@ -76,7 +76,7 @@ void main() async {
   test('Test backup and recover corrupted file', () async {
     await g.write('write', 'abc');
     expect('abc', g.read('write'));
-
+    await g.dispose();
     final file = await _fileDb();
     file.writeAsStringSync('ndj323e');
     await GetSecureStorage.init();

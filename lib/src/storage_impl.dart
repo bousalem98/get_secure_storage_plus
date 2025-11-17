@@ -32,6 +32,21 @@ class GetSecureStorage {
     }
   }
 
+  /// Clean up sensitive data from memory and remove from sync
+  Future<void> dispose() async {
+    // Clear sensitive references
+    secretKey = null;
+    algorithm = null;
+    _keyListeners.clear();
+
+    // Remove this instance from the sync map
+    final containerKey =
+        _sync.entries.firstWhereOrNull((entry) => entry.value == this)?.key;
+    if (containerKey != null) {
+      _sync.remove(containerKey);
+    }
+  }
+
   GetSecureStorage._internal(String key,
       [String? path, Map<String, dynamic>? initialData, String? password]) {
     _concrete = StorageImpl(key, path);
