@@ -159,6 +159,7 @@ class StorageImpl {
 
   Future<Directory> _getImplicitDir() async {
     try {
+      // return getApplicationSupportDirectory();
       return getApplicationDocumentsDirectory();
     } catch (err) {
       rethrow;
